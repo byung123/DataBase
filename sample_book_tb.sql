@@ -57,6 +57,20 @@ from
 group by
 	형식;
 
+select
+	도서명,
+    저자명,
+    출판사,
+    `표지주소(URL)`,
+    count(*) as cnt
+from
+	sample_book_tb
+group by 
+	도서명,
+    저자명,
+    출판사,
+    `표지주소(URL)`;
+
 -- 정규화된 데이터 매칭
 update 
 	sample_book_tb as sbt
@@ -70,6 +84,19 @@ set
     출판사ID = if(sbt.출판사 = "", null, pt.publisher_id),
     형식ID = btt.book_type_id;
     
+insert into book_tb
+select
+	0,
+	도서관ID,
+    도서명,
+    저자명,
+    `국제표준도서번호(ISBN)`,
+    카테고리ID,
+    출판사ID,
+    `표지주소(URL)`,
+    형식ID
+from
+	sample_book_tb;
 
     
     
